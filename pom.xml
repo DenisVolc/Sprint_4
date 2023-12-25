@@ -31,7 +31,6 @@
             <version> LATEST </version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 </project>
+<!--        //коммент для пул-реквеста-->
