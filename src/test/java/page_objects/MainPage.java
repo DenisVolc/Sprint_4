@@ -5,18 +5,25 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.Collection;
+import java.util.List;
+
 //https://qa-scooter.praktikum-services.ru/
-public class mainPage {
+public class MainPage {
 
     private WebDriver driver;
     private int n;
     //заголовок "Вопросы о важном"
-    private final By headerFAQ = By.className("Home_SubHeader__zwi_E");
+    private final By headerFAQ = By.xpath(".//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном'] ");
     //все стрелочки под заголовком
     private final By accordion = By.className("accordion__button");
     //текст под катом
     private final By answers = By.className("accordion__panel");
     private final By orderButton = By.className("Button_Button__ra12g");
+
+   public MainPage(WebDriver driver){
+       this.driver = driver;
+   }
     //Методы:
     //нажатие на стрелку
     public void pressQuestion(int n){
@@ -37,5 +44,9 @@ public class mainPage {
     //нажать на кнопку "заказать"
     public void clickOrder (){
         driver.findElement(orderButton).click();
+    }
+
+    public List<WebElement> getAccordion() {
+        return driver.findElements(accordion);
     }
 }

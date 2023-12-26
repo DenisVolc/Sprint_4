@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 //https://qa-scooter.praktikum-services.ru/order
-public class orderPage {
+public class OrderPage {
     //Поля
     private WebDriver driver;
     private final By name =By.xpath(".//input[@placeholder='* Имя']");//    Имя
@@ -14,7 +14,9 @@ public class orderPage {
     private final By phoneNumber =By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");//    Телефон
     private final By nextButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");//    Кнопка "Далее"
 
-
+    public OrderPage(WebDriver driver){
+        this.driver = driver;
+    }
     //Методы
 //    Нажать кнопку далее
     public void clickNextButton(){
