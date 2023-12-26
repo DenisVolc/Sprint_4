@@ -7,8 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import page_objects.*;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+//TODO параметризацию для браузеров
 
 public class Tests {
     WebDriver driver;
@@ -18,16 +18,17 @@ public class Tests {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
     }
 
     @Test
     public void faqTest(){
         MainPage mnPage = new MainPage(driver);
         driver.get("https://qa-scooter.praktikum-services.ru/");
+        mnPage.acceptCookies();
         mnPage.findFAQ();
 
         for (int i = 0; i < mnPage.getAccordion().size(); i++) {
-//            i = 7; // это для отладки, коментить для прода
             mnPage.pressQuestion(i);
             Assert.assertTrue(mnPage.isAnswerAppear(i));
         }
@@ -36,7 +37,37 @@ public class Tests {
 
     @Test
     public void orderPageTest(){
+        MainPage mainPage = new MainPage(driver);
 
+
+        driver.get("https://qa-scooter.praktikum-services.ru/");
+        mainPage.acceptCookies();
+
+//        нажать на кнопку заказа(верхнюю или нижнюю)
+        mainPage.clickUpperOrder();
+        OrderPage orderPage = new OrderPage(driver);
+        driver.findElement(orderPage.getHeader());
+
+//        заполнить форму заказа
+        //Перва форма
+        orderPage.inputName("Иван");
+        orderPage.inputSecondName("Иванов");
+        orderPage.inputAddress("Проспект Ленина д.1");
+        orderPage.chooseMetroStation(0);
+        orderPage.inputPhoneNumber("89151234567");
+        orderPage.clickNextButton();
+
+        //Вторая форма
+        orderPage.setDate("01.01.2021");
+        orderPage.chooseDuration(0);
+        orderPage.clickCheckBox(0);
+        orderPage.writeComment("Hello World");
+        orderPage.clickNextButton();
+//        проверить всплывающее окно
+        orderPage.orderConfirmation();//ждем появление окна подтверждения заказа
+        orderPage.clickYesButton();
+        //В ХРОМЕ Не могу узнать как выглядит окно подствержденного заказа потому что не могу руками прожать кнопку "да", похоже на дефект
+        Assert.assertTrue(orderPage.isOrderConfirmedAppear());
     }
 
     @After
