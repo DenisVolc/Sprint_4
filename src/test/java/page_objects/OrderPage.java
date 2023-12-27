@@ -105,7 +105,7 @@ public class OrderPage {
     public void clickNoButton(){
         confirmNoButton.click();
     }
-    public boolean isOrderConfirmedAppear(){
+    public boolean isAppearOrderConfirmed(){
         return !(orderConfirmed.getText().equals(" "));
     }
 }

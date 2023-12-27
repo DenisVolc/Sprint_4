@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Collection;
 import java.util.List;
 
 //https://qa-scooter.praktikum-services.ru/
@@ -36,6 +35,13 @@ public class MainPage {
     private WebElement samokatLogo;
     @FindBy(className = "Header_LogoYandex__3TSOI")
     private WebElement yandexLogo;
+    @FindBy(className = "Header_Link__1TAG7")
+    private WebElement trackButton;
+    @FindBy(xpath = ".//button[@class='Button_Button__ra12g Header_Button__28dPO']")
+    private WebElement goTrackButton;
+    @FindBy(xpath = ".//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']")
+    private WebElement inputTrack;
+
 
     //Методы:
     //нажатие на стрелку
@@ -44,7 +50,7 @@ public class MainPage {
         driver.findElement(question).click();
     }
     //проверить открытие текста под катом
-    public boolean isAnswerAppear(int n){
+    public boolean isEnabledAnswer(int n){
         By answer = By.id("accordion__panel-" + n);
         return driver.findElement(answer).isEnabled();
     }
@@ -79,5 +85,21 @@ public class MainPage {
     }
     public void clickYandexLogo(){
         yandexLogo.click();
+    }
+    public void clickTrackButton(){
+        trackButton.click();
+    }
+    public void clickGoTrackButton(){
+        goTrackButton.click();
+    }
+    public boolean isEnabledGoTrackButton(){
+        return goTrackButton.isEnabled();
+    }
+
+    public boolean isDisplayedGoTrackButton(){
+        return goTrackButton.isDisplayed();
+    }
+    public void setInputTrack(String trackNumber){
+        inputTrack.sendKeys(trackNumber);
     }
 }

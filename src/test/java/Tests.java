@@ -5,9 +5,10 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import page_objects.*;
 
-import java.util.ArrayList;
+
 import java.util.concurrent.TimeUnit;
 //TODO параметризацию для браузеров
 
@@ -18,6 +19,10 @@ public class Tests {
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
+//        WebDriverManager.firefoxdriver().setup();
+//        driver = new FirefoxDriver();
+
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
     }
@@ -31,7 +36,7 @@ public class Tests {
 
         for (int i = 0; i < mnPage.getAccordion().size(); i++) {
             mnPage.pressQuestion(i);
-            Assert.assertTrue(mnPage.isAnswerAppear(i));
+            Assert.assertTrue(mnPage.isEnabledAnswer(i));
         }
 
     }
@@ -65,7 +70,7 @@ public class Tests {
 
 //        проверить всплывающее окно
         orderPage.clickYesButton();
-        Assert.assertTrue("Не отображается подтверждение заказа",orderPage.isOrderConfirmedAppear());
+        Assert.assertTrue("Не отображается подтверждение заказа",orderPage.isAppearOrderConfirmed());
     }
     @Test
     public void samokatLogoTestN3(){
@@ -87,19 +92,30 @@ public class Tests {
             driver.switchTo().window(tab);
         }
         Assert.assertTrue(driver.getCurrentUrl().contains("dzen.ru")); //проверить url//проверить url
-
     }
 
     @Test
     public void orderErrorsTestN5(){
+
 //        Проверить ошибки для всех полей формы заказа.
+
     }
 
     @Test
     public void wrongOrderTestN6(){
+        MainPage mainPage = new MainPage(driver);
+        TrackPage trackPage = new TrackPage(driver);
+        driver.get(mainPageUrl);
+        mainPage.acceptCookies();
 //        Проверить: если ввести неправильный номер заказа, попадёшь на страницу статуса заказа
 //        На ней должно быть написано, что такого заказа нет.
-
+        mainPage.clickTrackButton();//Кликнуть "Статус заказа"
+//        mainPage.setInputTrack("1");//ввести неверный номер заказа
+        mainPage.setInputTrack("952951");// правильный номер заказа;
+        mainPage.clickGoTrackButton();//нажать Го
+        boolean result = trackPage.isDisplayedNotFoundImg();
+        Assert.assertTrue(result);//проверить запись "Такого заказа нет"
+        //TODO Если вводить правильный номер, то isDisplayedNotFoundImg() через раз возвращаяет true, но должен всегда false
     }
 
     @After
