@@ -47,7 +47,7 @@ public class OrderPage {
     private WebElement confirmNoButton ;
     @FindBy(className = "App_App__15LM-")
     private WebElement root;
-    @FindBy(className = "Order_ModalHeader__3FDaJ")
+    @FindBy(className = "Order_Text__2broi")
     private WebElement orderConfirmed; //заказ подтвержден
     //Методы
 
@@ -100,7 +100,7 @@ public class OrderPage {
         confirmNoButton.click();
     }
     public boolean isOrderConfirmedAppear(){
-        boolean result = orderConfirmed.isDisplayed();
+        boolean result = !(orderConfirmed.getText().equals(" "));
         return result;
     }
 }

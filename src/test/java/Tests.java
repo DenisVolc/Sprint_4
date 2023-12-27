@@ -67,7 +67,7 @@ public class Tests {
         orderPage.orderConfirmation();//ждем появление окна подтверждения заказа
         orderPage.clickYesButton();
         //В ХРОМЕ Не могу узнать как выглядит окно подствержденного заказа потому что не могу руками прожать кнопку "да", похоже на дефект
-        Assert.assertTrue(orderPage.isOrderConfirmedAppear());
+        Assert.assertTrue("Не отображается подтверждение заказа",orderPage.isOrderConfirmedAppear());
     }
 
     @After
