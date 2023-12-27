@@ -46,9 +46,9 @@ public class Tests {
 //        нажать на кнопку заказа(верхнюю или нижнюю)
         mainPage.clickUpperOrder();
         OrderPage orderPage = new OrderPage(driver);
-        driver.findElement(orderPage.getHeader());
 
 //        заполнить форму заказа
+
         //Перва форма
         orderPage.inputName("Иван");
         orderPage.inputSecondName("Иванов");
@@ -64,7 +64,6 @@ public class Tests {
         orderPage.writeComment("Hello World");
         orderPage.clickNextButton();
 //        проверить всплывающее окно
-        orderPage.orderConfirmation();//ждем появление окна подтверждения заказа
         orderPage.clickYesButton();
         //В ХРОМЕ Не могу узнать как выглядит окно подствержденного заказа потому что не могу руками прожать кнопку "да", похоже на дефект
         Assert.assertTrue("Не отображается подтверждение заказа",orderPage.isOrderConfirmedAppear());
@@ -72,6 +71,6 @@ public class Tests {
 
     @After
     public void quit(){
-        driver.quit();;
+        driver.quit();
     }
 }

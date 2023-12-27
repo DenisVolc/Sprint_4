@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 //https://qa-scooter.praktikum-services.ru/order
-//TODO заменить локаторы By на WebElemеnt
+
 public class OrderPage {
     //Локаторы
     private WebDriver driver;
@@ -17,22 +17,28 @@ public class OrderPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    private final By header = By.className("Order_Header__BZXOb");// заголовок
-    private final By name =By.xpath(".//input[@placeholder='* Имя']");//    Имя
-    private final By secondName =By.xpath(".//input[@placeholder='* Фамилия']");//    Фамилия
-    private final By address =By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");//    Адрес
-    private final By metroStations =By.className("select-search__input");//    станция метро
-    private final By phoneNumber =By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");//    Телефон
-    private final By nextButton = By.xpath(".//*[@class='Button_Button__ra12g Button_Middle__1CSJM']");//  //  Кнопка "Далее"
-
+    @FindBy(className = "Order_Header__BZXOb")
+    private WebElement header;// заголовок
+    @FindBy(xpath = ".//input[@placeholder='* Имя']")
+    private WebElement name;//    Имя
+    @FindBy(xpath = ".//input[@placeholder='* Фамилия']")
+    private WebElement secondName; //    Фамилия
+    @FindBy(xpath = ".//input[@placeholder='* Адрес: куда привезти заказ']")
+    private WebElement address ;//    Адрес
+    @FindBy(className = "select-search__input")
+    private WebElement metroStations;//    станция метро
+    @FindBy(xpath = ".//input[@placeholder='* Телефон: на него позвонит курьер']")
+    private WebElement phoneNumber;//    Телефон
+    @FindBy(xpath = ".//*[@class='Button_Button__ra12g Button_Middle__1CSJM']")
+    private WebElement nextButton;//  //  Кнопка "Далее"
     @FindBy(xpath = ".//input[@placeholder='* Когда привезти самокат']")
     private WebElement date;
     @FindBy(className = "Dropdown-control")
     private WebElement duration;
-
-//    private final By blackCheckBox = By.xpath(".//*[@for='black]");
-//    private final By greyCheckBox = By.xpath(".//*[@for='grey]");
-
+    @FindBy(xpath = ".//*[@for='black]")
+    private WebElement blackCheckBox;
+    @FindBy(xpath = ".//*[@for='grey]")
+    private WebElement greyCheckBox;
     @FindBy(className = "Checkbox_Input__14A2w")
     private List<WebElement> checkBox;
     @FindBy(xpath = ".//input[@placeholder='Комментарий для курьера']")
@@ -52,22 +58,22 @@ public class OrderPage {
     //Методы
 
     public void clickNextButton(){
-        driver.findElement(nextButton).click();
+        nextButton.click();
     }
     public void inputName(String text){//    заполнить имя
-    driver.findElement(name).sendKeys(text);
+    name.sendKeys(text);
     }
     public void inputSecondName(String text){//    заполнить Фамилию
-        driver.findElement(secondName).sendKeys(text);
+        secondName.sendKeys(text);
     }
     public void inputAddress(String text){//    заполнить адрес
-        driver.findElement(address).sendKeys(text);
+        address.sendKeys(text);
     }
     public void inputPhoneNumber(String text){//    заполнить номер
-        driver.findElement(phoneNumber).sendKeys(text);
+        phoneNumber.sendKeys(text);
     }
     public void chooseMetroStation(int n){//    заполнить номер
-        driver.findElement(metroStations).click();
+        metroStations.click();
         driver.findElement(By.xpath(".//li[@class='select-search__row' and @data-index='"+n+"']")).click();//n
     }
     public void setDate(String date){
@@ -78,7 +84,7 @@ public class OrderPage {
         duration.click();
         driver.findElements(By.className("Dropdown-option")).get(n).click();
     }
-    public By getHeader(){
+    public WebElement getHeader(){
         return header;
     }
     public void writeComment(String comment){
@@ -100,7 +106,6 @@ public class OrderPage {
         confirmNoButton.click();
     }
     public boolean isOrderConfirmedAppear(){
-        boolean result = !(orderConfirmed.getText().equals(" "));
-        return result;
+        return !(orderConfirmed.getText().equals(" "));
     }
 }

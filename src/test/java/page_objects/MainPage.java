@@ -4,13 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.Collection;
 import java.util.List;
 
 //https://qa-scooter.praktikum-services.ru/
-//TODO заменить локаторы By на WebElemеnt
+
 
 public class MainPage {
 
@@ -20,12 +21,17 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
     //заголовок "Вопросы о важном"
-    private final By headerFAQ = By.xpath(".//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном'] ");
+    @FindBy(xpath = ".//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном'] ")
+    private WebElement headerFAQ;
     //все стрелочки под заголовком
-    private final By accordion = By.className("accordion__button");
-    private final By upperOrderButton = By.className("Button_Button__ra12g");
-//    private final By lowerOrderButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");//TODO заменить className на Xpath
-    private final By cookieButton =By.id("rcc-confirm-button");
+    @FindBy(className = "accordion__button")
+    private List<WebElement> accordion ;
+    @FindBy(className = "Button_Button__ra12g")
+    private WebElement upperOrderButton ;
+    @FindBy(xpath = ".//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']")
+    private WebElement lowerOrderButton;
+    @FindBy(id = "rcc-confirm-button")
+    private WebElement cookieButton;
     //текст под катом
 //    private final By answers = By.className("accordion__panel");
 
@@ -42,19 +48,19 @@ public class MainPage {
     }
     //скролл до FAQ
     public void findFAQ(){
-        WebElement element = driver.findElement(headerFAQ);
+        WebElement element = headerFAQ;
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
     }
     //нажать на кнопку "заказать"
     public void clickUpperOrder (){
-        driver.findElement(upperOrderButton).click();
+        upperOrderButton.click();
     }
-//    public void clickLowerOrder (){
-//        driver.findElement(lowerOrderButton).click(); //раскоментить когда пофиксю lowerOrderButton
-//    }
+    public void clickLowerOrder (){
+        lowerOrderButton.click(); //раскоментить когда пофиксю lowerOrderButton
+    }
 
     public List<WebElement> getAccordion() {
-        return driver.findElements(accordion);
+        return accordion;
     }
 
     public By getQuestion(int n){
@@ -64,6 +70,6 @@ public class MainPage {
         return By.id("accordion__panel-" + n);
     }
     public void acceptCookies(){
-       driver.findElement(cookieButton).click();
+       cookieButton.click();
     }
 }
