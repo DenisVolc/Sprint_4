@@ -7,12 +7,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import page_objects.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 //TODO параметризацию для браузеров
 
 public class Tests {
     WebDriver driver;
-
+    public final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -22,9 +23,9 @@ public class Tests {
     }
 
     @Test
-    public void faqTest(){
+    public void faqTestN1(){
         MainPage mnPage = new MainPage(driver);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(mainPageUrl);
         mnPage.acceptCookies();
         mnPage.findFAQ();
 
@@ -36,11 +37,9 @@ public class Tests {
     }
 
     @Test
-    public void orderPageTest(){
+    public void orderPageTestN2(){
         MainPage mainPage = new MainPage(driver);
-
-
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(mainPageUrl);
         mainPage.acceptCookies();
 
 //        нажать на кнопку заказа(верхнюю или нижнюю)
@@ -63,10 +62,44 @@ public class Tests {
         orderPage.clickCheckBox(0);
         orderPage.writeComment("Hello World");
         orderPage.clickNextButton();
+
 //        проверить всплывающее окно
         orderPage.clickYesButton();
-        //В ХРОМЕ Не могу узнать как выглядит окно подствержденного заказа потому что не могу руками прожать кнопку "да", похоже на дефект
         Assert.assertTrue("Не отображается подтверждение заказа",orderPage.isOrderConfirmedAppear());
+    }
+    @Test
+    public void samokatLogoTestN3(){
+        MainPage mainPage = new MainPage(driver);
+        driver.get(mainPageUrl);
+        mainPage.acceptCookies();
+
+        mainPage.clickSamokatLogo(); //нажать на лого самоката
+        Assert.assertEquals(mainPageUrl,driver.getCurrentUrl()); //проверить url
+
+    }
+    @Test
+    public void yandexLogoTestN4(){
+        MainPage mainPage = new MainPage(driver);
+        driver.get(mainPageUrl);
+        mainPage.acceptCookies();
+        mainPage.clickYandexLogo();//нажать на лого yandex
+        for(String tab : driver.getWindowHandles()){
+            driver.switchTo().window(tab);
+        }
+        Assert.assertTrue(driver.getCurrentUrl().contains("dzen.ru")); //проверить url//проверить url
+
+    }
+
+    @Test
+    public void orderErrorsTestN5(){
+//        Проверить ошибки для всех полей формы заказа.
+    }
+
+    @Test
+    public void wrongOrderTestN6(){
+//        Проверить: если ввести неправильный номер заказа, попадёшь на страницу статуса заказа
+//        На ней должно быть написано, что такого заказа нет.
+
     }
 
     @After

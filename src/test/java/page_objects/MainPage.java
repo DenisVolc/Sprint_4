@@ -32,8 +32,10 @@ public class MainPage {
     private WebElement lowerOrderButton;
     @FindBy(id = "rcc-confirm-button")
     private WebElement cookieButton;
-    //текст под катом
-//    private final By answers = By.className("accordion__panel");
+    @FindBy(className = "Header_LogoScooter__3lsAR")
+    private WebElement samokatLogo;
+    @FindBy(className = "Header_LogoYandex__3TSOI")
+    private WebElement yandexLogo;
 
     //Методы:
     //нажатие на стрелку
@@ -71,5 +73,11 @@ public class MainPage {
     }
     public void acceptCookies(){
        cookieButton.click();
+    }
+    public void clickSamokatLogo(){
+        samokatLogo.click();
+    }
+    public void clickYandexLogo(){
+        yandexLogo.click();
     }
 }
