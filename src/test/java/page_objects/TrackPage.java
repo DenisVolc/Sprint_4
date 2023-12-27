@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 //https://qa-scooter.praktikum-services.ru/track?t=
 public class TrackPage {
-    private WebDriver driver;
+    WebDriver driver;
     public TrackPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);

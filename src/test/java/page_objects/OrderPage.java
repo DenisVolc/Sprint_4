@@ -12,13 +12,11 @@ import java.util.List;
 
 public class OrderPage {
     //Локаторы
-    private WebDriver driver;
+    WebDriver driver;
     public OrderPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    @FindBy(className = "Order_Header__BZXOb")
-    private WebElement header;// заголовок
     @FindBy(xpath = ".//input[@placeholder='* Имя']")
     private WebElement name;//    Имя
     @FindBy(xpath = ".//input[@placeholder='* Фамилия']")
@@ -35,26 +33,27 @@ public class OrderPage {
     private WebElement date;
     @FindBy(className = "Dropdown-control")
     private WebElement duration;
-    @FindBy(xpath = ".//*[@for='black]")
-    private WebElement blackCheckBox;
-    @FindBy(xpath = ".//*[@for='grey]")
-    private WebElement greyCheckBox;
     @FindBy(className = "Checkbox_Input__14A2w")
     private List<WebElement> checkBox;
     @FindBy(xpath = ".//input[@placeholder='Комментарий для курьера']")
     private WebElement commentInput;
-    @FindBy(xpath = ".//*[@class='Button_Button__ra12g Button_Middle__1CSJM Button_Inverted__3IF-i' and text()='Назад']")
-    private WebElement backButton;
-    @FindBy(className = "Order_Modal__YZ-d3")
-    private WebElement orderConfirm ;//окно подтверждения заказа
     @FindBy(xpath = ".//*[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']")
     private WebElement confirmYesButton ;
-    @FindBy(xpath = ".//*[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Нет']")
-    private WebElement confirmNoButton ;
     @FindBy(className = "App_App__15LM-")
     private WebElement root;
     @FindBy(className = "Order_Text__2broi")
     private WebElement orderConfirmed; //заказ подтвержден
+    @FindBy(xpath = ".//div[text()='Введите корректное имя']")
+    private WebElement nameError;
+    @FindBy(xpath = ".//div[text()='Введите корректную фамилию']")
+    private WebElement secondNameError;
+    @FindBy(xpath = ".//div[text()='Введите корректный адрес']")
+    private WebElement addressError;
+    @FindBy(xpath = ".//div[text()='Выберите станцию']")
+    private WebElement metroStationsError;
+    @FindBy(xpath = ".//div[text()='Введите корректный номер']")
+    private WebElement phoneNumberError;
+
     //Методы
 
     public void clickNextButton(){
@@ -84,28 +83,32 @@ public class OrderPage {
         duration.click();
         driver.findElements(By.className("Dropdown-option")).get(n).click();
     }
-    public WebElement getHeader(){
-        return header;
-    }
     public void writeComment(String comment){
         commentInput.sendKeys(comment);
     }
     public void clickCheckBox(int i){
         checkBox.get(i).click();
     }
-    public void clickBackButton() {
-        backButton.click();
-    }
-    public WebElement orderConfirmation(){
-        return orderConfirm;
-    }
     public void clickYesButton(){
         confirmYesButton.click();
-    }
-    public void clickNoButton(){
-        confirmNoButton.click();
     }
     public boolean isAppearOrderConfirmed(){
         return !(orderConfirmed.getText().equals(" "));
     }
+    public boolean isAppearNameError(){
+        return nameError.isDisplayed();
+    }
+    public boolean isAppearSecondNameError(){
+        return secondNameError.isDisplayed();
+    }
+    public boolean isAppearAddressError(){
+        return addressError.isDisplayed();
+    }
+    public boolean isAppearMetroStationError(){
+        return metroStationsError.isDisplayed();
+    }
+    public boolean isAppearPhoneNumberError(){
+        return phoneNumberError.isDisplayed();
+    }
+
 }

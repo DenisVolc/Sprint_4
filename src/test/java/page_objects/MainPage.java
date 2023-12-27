@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MainPage {
 
-    private WebDriver driver;
+    WebDriver driver;
     public MainPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -27,7 +27,7 @@ public class MainPage {
     private List<WebElement> accordion ;
     @FindBy(className = "Button_Button__ra12g")
     private WebElement upperOrderButton ;
-    @FindBy(xpath = ".//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']")
+    @FindBy(className = "Home_FinishButton__1_cWm")
     private WebElement lowerOrderButton;
     @FindBy(id = "rcc-confirm-button")
     private WebElement cookieButton;
@@ -41,6 +41,7 @@ public class MainPage {
     private WebElement goTrackButton;
     @FindBy(xpath = ".//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']")
     private WebElement inputTrack;
+
 
 
     //Методы:
@@ -71,12 +72,6 @@ public class MainPage {
         return accordion;
     }
 
-    public By getQuestion(int n){
-        return By.id("accordion__heading-" + n);
-    }
-    public By getAnswer(int n){
-        return By.id("accordion__panel-" + n);
-    }
     public void acceptCookies(){
        cookieButton.click();
     }
@@ -92,14 +87,8 @@ public class MainPage {
     public void clickGoTrackButton(){
         goTrackButton.click();
     }
-    public boolean isEnabledGoTrackButton(){
-        return goTrackButton.isEnabled();
-    }
-
-    public boolean isDisplayedGoTrackButton(){
-        return goTrackButton.isDisplayed();
-    }
     public void setInputTrack(String trackNumber){
         inputTrack.sendKeys(trackNumber);
     }
+
 }
