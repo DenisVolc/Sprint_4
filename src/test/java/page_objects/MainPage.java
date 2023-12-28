@@ -67,9 +67,12 @@ public class MainPage {
     public void clickLowerOrder (){
         lowerOrderButton.click(); //раскоментить когда пофиксю lowerOrderButton
     }
-
-    public List<WebElement> getAccordion() {
-        return accordion;
+    public void clickOrderButton(boolean isUpperButton){
+        if (isUpperButton){
+            upperOrderButton.click();
+        }else{
+            lowerOrderButton.click();
+        }
     }
 
     public void acceptCookies(){
@@ -87,8 +90,7 @@ public class MainPage {
     public void clickGoTrackButton(){
         goTrackButton.click();
     }
-    public void setInputTrack(String trackNumber){
-        inputTrack.sendKeys(trackNumber);
+    public WebElement getGoTrackButton() {
+        return goTrackButton;
     }
-
 }

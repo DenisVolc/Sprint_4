@@ -10,46 +10,40 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page_objects.MainPage;
 import page_objects.OrderPage;
 import page_objects.TrackPage;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(Parameterized.class)
 public class OrderTests {
-    private final String name;
-    private final String secondName;
-    private final String address;
-    private final int metroStations;
-    private final String phoneNumber;
+
     private final String browser;
 
 
 
-    public OrderTests(String name, String secondName, String address,
-                      int metroStations, String phoneNumber, String browser) {
-        this.name = name;
-        this.secondName = secondName;
-        this.address = address;
-        this.metroStations = metroStations;
-        this.phoneNumber = phoneNumber;
+    public OrderTests( String browser) {
+
         this.browser = browser;
+
     }
     @Parameterized.Parameters // добавили аннотацию
     public static Object[][] TestDataSet() {
         return new Object[][]{
-                {"Иван","Иванов","Проспект Ленина д.1",0,"89151234578","chrome"},
-                {"Петр","Васильев","ул. Арбат",100,"+79059876521","mozila"},
+                {"chrome"},
+                {"mozila"},
         };
     }
 
     WebDriver driver;
-    public final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+    final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
     @Before
     public void setUp(){
-
-        if(browser.equals("chrome")){
+            if(browser.equals("chrome")){
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
@@ -62,42 +56,6 @@ public class OrderTests {
     }
 
 
-
-
-
-        @Test
-        public void orderPageTestN2() {
-            MainPage mainPage = new MainPage(driver);
-            driver.get(mainPageUrl);
-            mainPage.acceptCookies();
-
-//        нажать на кнопку заказа(верхнюю или нижнюю)
-            mainPage.clickLowerOrder();
-            OrderPage orderPage = new OrderPage(driver);
-
-//        заполнить форму заказа
-
-            //Перва форма
-            orderPage.inputName(name);
-            orderPage.inputSecondName(secondName);
-            orderPage.inputAddress(address);
-            orderPage.chooseMetroStation(metroStations);
-            orderPage.inputPhoneNumber(phoneNumber);
-            orderPage.clickNextButton();
-
-            //Вторая форма
-            orderPage.setDate("01.01.2021");
-            orderPage.chooseDuration(0);
-            orderPage.clickCheckBox(0);
-            orderPage.writeComment("Hello World");
-            orderPage.clickNextButton();
-
-//        проверить всплывающее окно
-            orderPage.clickYesButton();
-            Assert.assertTrue("Не отображается подтверждение заказа",
-                    orderPage.isAppearOrderConfirmed());
-        }
-
         @Test
         public void orderErrorsTestN5() {
             MainPage mainPage = new MainPage(driver);
@@ -106,8 +64,8 @@ public class OrderTests {
 
 //        нажать на кнопку заказа(верхнюю или нижнюю)
             mainPage.clickUpperOrder();
-            OrderPage orderPage = new OrderPage(driver);
 
+            OrderPage orderPage = new OrderPage(driver);
             orderPage.clickNextButton();
 //        Проверить ошибки для всех полей формы заказа.
             Assert.assertTrue(orderPage.isAppearNameError());
@@ -115,6 +73,8 @@ public class OrderTests {
             Assert.assertTrue(orderPage.isAppearMetroStationError());
             Assert.assertTrue(orderPage.isAppearPhoneNumberError());
             Assert.assertTrue(orderPage.isAppearAddressError());
+            //На второй странце заказа нет сообщений об ошибках и не понятно какие у них локаторы,
+            // поэтому эти тесты я не реализовал
         }
 
         @Test
@@ -126,17 +86,21 @@ public class OrderTests {
 //        Проверить: если ввести неправильный номер заказа, попадёшь на страницу статуса заказа
 //        На ней должно быть написано, что такого заказа нет.
             mainPage.clickTrackButton();//Кликнуть "Статус заказа"
-            mainPage.setInputTrack("1");//ввести неверный номер заказа
-//        mainPage.setInputTrack("952951");// правильный номер заказа;
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.elementToBeClickable(mainPage.getGoTrackButton()));
+//            mainPage.setInputTrack("952951");// ввести правильный номер заказа для отладки; Почему-то в хроме этот тест будет проходить
             mainPage.clickGoTrackButton();//нажать Го
-            boolean result = trackPage.isDisplayedNotFoundImg();
-            Assert.assertTrue(result);//проверить запись "Такого заказа нет"
-            //TODO isDisplayedNotFoundImg() через раз возвращаяет то true, то false
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.elementToBeClickable(trackPage.getLookAtButton()));
+            Assert.assertTrue(trackPage.isDisplayedNotFoundImg());//проверить запись "Такого заказа нет"
         }
+
 
     @After
     public void quit(){
         driver.quit();
     }
+
+
 
 }

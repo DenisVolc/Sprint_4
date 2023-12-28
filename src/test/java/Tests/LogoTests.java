@@ -10,28 +10,33 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page_objects.*;
 
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
-//TODO параметризацию для браузеров
+
 
 @RunWith(Parameterized.class)
-public class MainPageTests {
+public class LogoTests {
     WebDriver driver;
     private final String browser;
 
-    public MainPageTests(String browser) {
+    private final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+    public LogoTests(String browser) {
         this.browser = browser;
     }
 
-    public final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
 
     @Parameterized.Parameters // добавили аннотацию
     public static Object[][] orderTestDataSet() {
         return new Object[][]{
                 {"chrome"},
                 {"mozila"},
+
         };
     }
     @Before
@@ -48,19 +53,7 @@ public class MainPageTests {
 
     }
 
-    @Test
-    public void faqTestN1(){
-        MainPage mnPage = new MainPage(driver);
-        driver.get(mainPageUrl);
-        mnPage.acceptCookies();
-        mnPage.findFAQ();
 
-        for (int i = 0; i < mnPage.getAccordion().size(); i++) {
-            mnPage.pressQuestion(i);
-            Assert.assertTrue(mnPage.isEnabledAnswer(i));
-        }
-
-    }
     @Test
     public void samokatLogoTestN3(){
         MainPage mainPage = new MainPage(driver);
@@ -82,6 +75,9 @@ public class MainPageTests {
         for(String tab : driver.getWindowHandles()){
             driver.switchTo().window(tab);
         }
+        YandexPage dzen = new YandexPage(driver);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(dzen.getYandexSearchBar()));
         Assert.assertTrue(driver.getCurrentUrl().contains("dzen.ru")); //проверить url
     }
     @After

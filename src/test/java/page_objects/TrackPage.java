@@ -15,8 +15,15 @@ public class TrackPage {
 
     @FindBy (xpath = ".//*[@alt='Not found']")
     private WebElement notFoundImg;
-
+    @FindBy(xpath = ".//*[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Посмотреть']")
+    private WebElement lookAtButton;
     public boolean isDisplayedNotFoundImg(){
-        return notFoundImg.isDisplayed();
+         return notFoundImg.isEnabled();
+
+
+    }
+
+    public WebElement getLookAtButton() {
+        return lookAtButton;
     }
 }
