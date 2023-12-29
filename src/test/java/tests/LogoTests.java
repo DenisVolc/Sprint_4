@@ -1,54 +1,37 @@
-package Tests;
+package tests;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import page_objects.*;
+import pageobjects.*;
 
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 
-@RunWith(Parameterized.class)
+
 public class LogoTests {
     WebDriver driver;
-    private final String browser;
 
-    private final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
-    public LogoTests(String browser) {
-        this.browser = browser;
-    }
+
+    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
 
 
 
-    @Parameterized.Parameters // добавили аннотацию
-    public static Object[][] orderTestDataSet() {
-        return new Object[][]{
-                {"chrome"},
-                {"mozila"},
 
-        };
-    }
+
     @Before
     public void setUp(){
-        if(browser.equals("chrome")){
+
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        }
-        if(browser.equals("mozila")) {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        }
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
     }
@@ -67,7 +50,7 @@ public class LogoTests {
 
     }
     @Test
-    public void yandexLogoTestN4(){
+    public void yandexLogoTest(){
         MainPage mainPage = new MainPage(driver);
         driver.get(mainPageUrl);
         mainPage.acceptCookies();

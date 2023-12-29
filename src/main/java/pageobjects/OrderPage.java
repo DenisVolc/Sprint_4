@@ -1,4 +1,4 @@
-package page_objects;
+package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +17,8 @@ public class OrderPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+    @FindBy (className = "Order_Header__BZXOb")
+    private WebElement orderHeader;
     @FindBy(xpath = ".//input[@placeholder='* Имя']")
     private WebElement name;//    Имя
     @FindBy(xpath = ".//input[@placeholder='* Фамилия']")
@@ -111,4 +113,7 @@ public class OrderPage {
         return phoneNumberError.isDisplayed();
     }
 
+    public boolean isDisplayedOrderHeader() {
+        return orderHeader.isDisplayed();
+    }
 }
