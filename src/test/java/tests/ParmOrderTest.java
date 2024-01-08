@@ -1,5 +1,6 @@
 package tests;
 
+import constants.URL;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,13 +43,13 @@ public class ParmOrderTest {
     }
 
     WebDriver driver;
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
     }
     @Test
     public void orderPageTest() {
@@ -81,7 +82,7 @@ public class ParmOrderTest {
 //        проверить всплывающее окно
         orderPage.clickYesButton();
         Assert.assertTrue("Не отображается подтверждение заказа",
-                orderPage.isAppearOrderConfirmed());
+                orderPage.isAppearOrderConfirmed("Заказ оформлен"));
     }
 
     @After

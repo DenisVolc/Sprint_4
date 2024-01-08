@@ -1,5 +1,6 @@
 package tests;
 
+import constants.URL;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,12 +22,6 @@ public class LogoTests {
     WebDriver driver;
 
 
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
-
-
-
-
-
     @Before
     public void setUp(){
 
@@ -40,19 +35,19 @@ public class LogoTests {
     @Test
     public void samokatLogoTestN3(){
         MainPage mainPage = new MainPage(driver);
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
 
         mainPage.acceptCookies();
         mainPage.clickLowerOrder();
         mainPage.clickSamokatLogo(); //нажать на лого самоката
 
-        Assert.assertEquals(mainPageUrl,driver.getCurrentUrl()); //проверить url
+        Assert.assertEquals(URL.MAIN_PAGE_URL,driver.getCurrentUrl()); //проверить url
 
     }
     @Test
     public void yandexLogoTest(){
         MainPage mainPage = new MainPage(driver);
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
         mainPage.acceptCookies();
         mainPage.clickYandexLogo();//нажать на лого yandex
         for(String tab : driver.getWindowHandles()){

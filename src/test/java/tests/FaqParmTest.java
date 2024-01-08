@@ -10,11 +10,14 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.MainPage;
+import constants.URL;
+
 
 import java.util.concurrent.TimeUnit;
 @RunWith(Parameterized.class)
 public class FaqParmTest {
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
+
     WebDriver driver;
     private final int questionNumber;
 
@@ -47,7 +50,7 @@ public class FaqParmTest {
     public void faqTest(){
         MainPage mnPage = new MainPage(driver); // Требование "Тесты для раздела "Вопросы и важном" реализуй через параметризацию."
         // реализовал через параметризацию баузера :)
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
         mnPage.acceptCookies();
         mnPage.findFAQ();
         mnPage.pressQuestion(questionNumber);

@@ -43,8 +43,11 @@ public class OrderPage {
     private WebElement confirmYesButton ;
     @FindBy(className = "App_App__15LM-")
     private WebElement root;
-    @FindBy(className = "Order_Text__2broi")
-    private WebElement orderConfirmed; //заказ подтвержден
+
+
+    @FindBy(className = "Order_ModalHeader__3FDaJ")
+    private WebElement orderConfirmedHeader; //заказ подтвержден
+
     @FindBy(xpath = ".//div[text()='Введите корректное имя']")
     private WebElement nameError;
     @FindBy(xpath = ".//div[text()='Введите корректную фамилию']")
@@ -94,8 +97,8 @@ public class OrderPage {
     public void clickYesButton(){
         confirmYesButton.click();
     }
-    public boolean isAppearOrderConfirmed(){
-        return !(orderConfirmed.getText().equals(" "));
+    public boolean isAppearOrderConfirmed(String expectedText){
+        return (orderConfirmedHeader.getText().equals(expectedText));
     }
     public boolean isAppearNameError(){
         return nameError.isDisplayed();

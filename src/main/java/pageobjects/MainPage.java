@@ -41,10 +41,10 @@ public class MainPage {
     @FindBy(className = "Header_Link__1TAG7")
     private WebElement trackButton;
     @FindBy(xpath = ".//button[@class='Button_Button__ra12g Header_Button__28dPO']")
-    private WebElement goTrackButton;
+    private WebElement goTrackButton; // Это кнопка GO для проверки номера заказа
     @FindBy(xpath = ".//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']")
-    private WebElement inputTrack;
-    private final String[]expectedText = {
+    private WebElement inputTrackNumber; // Это поле ввода номера заказа для проверки
+    private final String[] expectedText = { //Это массив с ожидаемым текстом ответов на вопросы
             "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
             "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
             "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
@@ -110,7 +110,7 @@ public class MainPage {
         return goTrackButton;
     }
 
-    public void setInputTrack(String number) {
-        inputTrack.sendKeys(number);
+    public void setInputTrackNumber(String number) {
+        inputTrackNumber.sendKeys(number);
     }
 }

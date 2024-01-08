@@ -1,5 +1,6 @@
 package tests;
 
+import constants.URL;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class WrongOrderTest {
 
     WebDriver driver;
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -32,14 +33,14 @@ public class WrongOrderTest {
         public void wrongOrderTest() {
             MainPage mainPage = new MainPage(driver);
             TrackPage trackPage = new TrackPage(driver);
-            driver.get(mainPageUrl);
+            driver.get(URL.MAIN_PAGE_URL);
             mainPage.acceptCookies();
 //        Проверить: если ввести неправильный номер заказа, попадёшь на страницу статуса заказа
 //        На ней должно быть написано, что такого заказа нет.
             mainPage.clickTrackButton();//Кликнуть "Статус заказа"
             new WebDriverWait(driver, Duration.ofSeconds(5))
                     .until(ExpectedConditions.elementToBeClickable(mainPage.getGoTrackButton()));
-            mainPage.setInputTrack("1");
+            mainPage.setInputTrackNumber("1");
             mainPage.clickGoTrackButton();//нажать Го
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.elementToBeClickable(trackPage.getLookAtButton()));

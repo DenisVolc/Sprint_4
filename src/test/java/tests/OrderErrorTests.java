@@ -1,5 +1,6 @@
 package tests;
 
+import constants.URL;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,14 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class OrderErrorTests {
 
     WebDriver driver;
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         MainPage mainPage = new MainPage(driver);
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
         mainPage.acceptCookies();
 //        нажать на кнопку заказа(верхнюю или нижнюю)
         mainPage.clickUpperOrder();
@@ -35,31 +36,31 @@ public class OrderErrorTests {
         public void appearNameErrorTest() {
             OrderPage orderPage = new OrderPage(driver);
             orderPage.clickNextButton();
-            Assert.assertTrue(orderPage.isAppearNameError());
+            Assert.assertTrue("Нет ошибки имени",orderPage.isAppearNameError());
         }
     @Test
     public void appearSecondNameErrorTest(){
             OrderPage orderPage = new OrderPage(driver);
             orderPage.clickNextButton();
-            Assert.assertTrue(orderPage.isAppearSecondNameError());
+            Assert.assertTrue("Нет ошибки фамилии",orderPage.isAppearSecondNameError());
     }
     @Test
     public void appearMetroStationErrorTest(){
         OrderPage orderPage = new OrderPage(driver);
         orderPage.clickNextButton();
-        Assert.assertTrue(orderPage.isAppearMetroStationError());
+        Assert.assertTrue("Нет ошибки станци метро",orderPage.isAppearMetroStationError());
     }
     @Test
     public void appearPhoneNumberErrorTest(){
         OrderPage orderPage = new OrderPage(driver);
         orderPage.clickNextButton();
-        Assert.assertTrue(orderPage.isAppearPhoneNumberError());
+        Assert.assertTrue("Нет ошибки номера",orderPage.isAppearPhoneNumberError());
     }
     @Test
     public void appearAddressErrorTest(){
         OrderPage orderPage = new OrderPage(driver);
         orderPage.clickNextButton();
-        Assert.assertTrue(orderPage.isAppearAddressError());
+        Assert.assertTrue("Нет ошибки адреса",orderPage.isAppearAddressError());
     }
 
 

@@ -1,5 +1,6 @@
 package tests;
 
+import constants.URL;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,17 +11,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.MainPage;
 import pageobjects.OrderPage;
 
+
 import java.util.concurrent.TimeUnit;
 
 public class LowerOrderButtonTest {
     WebDriver driver;
-    static final String mainPageUrl= "https://qa-scooter.praktikum-services.ru/";
+
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get(mainPageUrl);
+        driver.get(URL.MAIN_PAGE_URL);
     }
     @Test
     public void lowerOrderButtonTest(){
