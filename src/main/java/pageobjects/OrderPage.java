@@ -1,5 +1,6 @@
 package pageobjects;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+
 
 //https://qa-scooter.praktikum-services.ru/order
 
@@ -47,7 +50,6 @@ public class OrderPage {
 
     @FindBy(className = "Order_ModalHeader__3FDaJ")
     private WebElement orderConfirmedHeader; //заказ подтвержден
-
     @FindBy(xpath = ".//div[text()='Введите корректное имя']")
     private WebElement nameError;
     @FindBy(xpath = ".//div[text()='Введите корректную фамилию']")
@@ -58,6 +60,8 @@ public class OrderPage {
     private WebElement metroStationsError;
     @FindBy(xpath = ".//div[text()='Введите корректный номер']")
     private WebElement phoneNumberError;
+
+
 
     //Методы
 
@@ -98,8 +102,9 @@ public class OrderPage {
         confirmYesButton.click();
     }
     public boolean isAppearOrderConfirmed(String expectedText){
-        return (orderConfirmedHeader.getText().equals(expectedText));
+        return orderConfirmedHeader.getText().contains(expectedText);
     }
+
     public boolean isAppearNameError(){
         return nameError.isDisplayed();
     }

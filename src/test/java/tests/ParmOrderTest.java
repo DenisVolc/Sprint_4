@@ -81,8 +81,8 @@ public class ParmOrderTest {
 
 //        проверить всплывающее окно
         orderPage.clickYesButton();
-        Assert.assertTrue("Не отображается подтверждение заказа",
-                orderPage.isAppearOrderConfirmed("Заказ оформлен"));
+        boolean result =orderPage.isAppearOrderConfirmed("Заказ оформлен");
+        Assert.assertTrue("Не отображается подтверждение заказа", result);
     }
 
     @After
