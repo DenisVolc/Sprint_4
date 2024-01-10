@@ -1,6 +1,6 @@
 package tests;
 
-import constants.URL;
+import constants.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -23,7 +23,7 @@ public class LowerOrderButtonTest {
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get(URL.MAIN_PAGE_URL);
+        driver.get(Constants.MAIN_PAGE_URL);
     }
     @Test
     public void lowerOrderButtonTest(){

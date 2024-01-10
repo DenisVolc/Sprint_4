@@ -10,7 +10,7 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.MainPage;
-import constants.URL;
+import constants.Constants;
 
 
 import java.util.concurrent.TimeUnit;
@@ -50,7 +50,7 @@ public class FaqParmTest {
     public void faqTest(){
         MainPage mnPage = new MainPage(driver); // Требование "Тесты для раздела "Вопросы и важном" реализуй через параметризацию."
         // реализовал через параметризацию баузера :)
-        driver.get(URL.MAIN_PAGE_URL);
+        driver.get(Constants.MAIN_PAGE_URL);
         mnPage.acceptCookies();
         mnPage.findFAQ();
         mnPage.pressQuestion(questionNumber);

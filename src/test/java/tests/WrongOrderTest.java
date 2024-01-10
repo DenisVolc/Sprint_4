@@ -1,6 +1,6 @@
 package tests;
 
-import constants.URL;
+import constants.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -33,7 +33,7 @@ public class WrongOrderTest {
         public void wrongOrderTest() {
             MainPage mainPage = new MainPage(driver);
             TrackPage trackPage = new TrackPage(driver);
-            driver.get(URL.MAIN_PAGE_URL);
+            driver.get(Constants.MAIN_PAGE_URL);
             mainPage.acceptCookies();
 //        Проверить: если ввести неправильный номер заказа, попадёшь на страницу статуса заказа
 //        На ней должно быть написано, что такого заказа нет.

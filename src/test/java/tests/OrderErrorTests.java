@@ -1,6 +1,6 @@
 package tests;
 
-import constants.URL;
+import constants.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -24,7 +24,7 @@ public class OrderErrorTests {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         MainPage mainPage = new MainPage(driver);
-        driver.get(URL.MAIN_PAGE_URL);
+        driver.get(Constants.MAIN_PAGE_URL);
         mainPage.acceptCookies();
 //        нажать на кнопку заказа(верхнюю или нижнюю)
         mainPage.clickUpperOrder();

@@ -1,6 +1,6 @@
 package tests;
 
-import constants.URL;
+import constants.Constants;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,19 +35,19 @@ public class LogoTests {
     @Test
     public void samokatLogoTestN3(){
         MainPage mainPage = new MainPage(driver);
-        driver.get(URL.MAIN_PAGE_URL);
+        driver.get(Constants.MAIN_PAGE_URL);
 
         mainPage.acceptCookies();
         mainPage.clickLowerOrder();
         mainPage.clickSamokatLogo(); //нажать на лого самоката
 
-        Assert.assertEquals(URL.MAIN_PAGE_URL,driver.getCurrentUrl()); //проверить url
+        Assert.assertEquals(Constants.MAIN_PAGE_URL,driver.getCurrentUrl()); //проверить url
 
     }
     @Test
     public void yandexLogoTest(){
         MainPage mainPage = new MainPage(driver);
-        driver.get(URL.MAIN_PAGE_URL);
+        driver.get(Constants.MAIN_PAGE_URL);
         mainPage.acceptCookies();
         mainPage.clickYandexLogo();//нажать на лого yandex
         for(String tab : driver.getWindowHandles()){
